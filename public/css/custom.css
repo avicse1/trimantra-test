@@ -11,3 +11,15 @@
 .navbar-inverse {
     border-radius: 0 !important;
 }
+.has-error {
+    color: red;
+}
+.error-position {
+    float: right;
+}
+.navbar-inverse {
+    border-radius: 0 !important;
+}
+.table-row {
+    cursor: pointer;
+}
