@@ -1,0 +1,13 @@
+.custom-navbar {
+    background-color: #e3f2fd;
+    margin-bottom: 30px;
+}
+.has-error {
+    color: red;
+}
+.error-position {
+    float: right;
+}
+.navbar-inverse {
+    border-radius: 0 !important;
+}

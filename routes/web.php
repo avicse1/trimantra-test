@@ -12,5 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('category_list');
 });
+
+Route::get('category-list', 'CategoryController@index')->name('category_list');
+Route::get('product-list', 'ProductController@index')->name('product_list');
