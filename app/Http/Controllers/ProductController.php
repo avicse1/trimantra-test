@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
 use Session;
+use DB;
 
 class ProductController extends Controller
 {
@@ -79,7 +80,14 @@ class ProductController extends Controller
 
     public function delete($id) {
         Product::destroy($id);
-        Session::flash('success', 'Product deleted successfully!');
-        return redirect()->back();
+        Session::flash('success', 'Category deleted successfully!');
+        return redirect()->back();        
+    }
+
+    public function deleteAll(Request $request)
+    {
+        $ids = $request->ids;
+        DB::table("products")->whereIn('id',explode(",",$ids))->delete();
+        return response()->json(['success'=>"Products Deleted successfully."]);
     }
 }

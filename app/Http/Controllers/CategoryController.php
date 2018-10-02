@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use Session;
+use DB;
 
 class CategoryController extends Controller
 {
@@ -71,5 +72,12 @@ class CategoryController extends Controller
         Category::destroy($id);
         Session::flash('success', 'Category deleted successfully!');
         return redirect()->back();
+    }
+
+    public function deleteAll(Request $request)
+    {
+        $ids = $request->ids;
+        DB::table("categories")->whereIn('id',explode(",",$ids))->delete();
+        return response()->json(['success'=>"Category Deleted successfully."]);
     }
 }
