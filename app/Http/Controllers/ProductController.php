@@ -32,11 +32,11 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->category_id = $request->category;
-
-        $imageName = str_random(10).time() . '.' . $request->image->getClientOriginalExtension();
-        $request->image->move(public_path('images'), $imageName);
-        $product->image = $imageName;
-
+        if ($request->hasFile('image')) {
+            $imageName = str_random(10).time() . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('images'), $imageName);
+            $product->image = $imageName;
+        }
         $product->save();
 
         Session::flash('success', 'Product added successfully!');
@@ -76,7 +76,7 @@ class ProductController extends Controller
 
         return redirect()->route('product_list');
     }
-    
+
     public function delete($id) {
         Product::destroy($id);
         Session::flash('success', 'Product deleted successfully!');

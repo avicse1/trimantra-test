@@ -28,11 +28,11 @@ class CategoryController extends Controller
         $category = new Category;
 
         $category->name = $request->name;
-
-        $imageName = str_random(10).time() . '.' . $request->image->getClientOriginalExtension();
-        $request->image->move(public_path('images'), $imageName);
-        $category->image = $imageName;
-
+        if ($request->hasFile('image')) {
+            $imageName = str_random(10).time() . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('images'), $imageName);
+            $category->image = $imageName;
+        }
         $category->save();
 
         Session::flash('success', 'Category added successfully!');

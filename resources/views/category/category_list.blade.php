@@ -21,7 +21,7 @@
                     <td>{{$i++}}</td>
                     <td>{{$category->name}}</td>
                     <td><img src="{{asset('images/'.$category->image)}}" width="80"></td>
-                    <td>78</td>
+                    <td>{{$category->products->count()}}</td>
                     <td>
                         <div class="btn-group">
                             <a href="{{route('show_category', $category->id)}}" type="button" class="btn btn-primary">Edit</a>
