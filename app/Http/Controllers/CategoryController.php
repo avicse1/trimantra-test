@@ -5,16 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use Session;
+
 class CategoryController extends Controller
 {
     public function index() {
         // Category List
         $categories = Category::all();
-        return view('category_list', compact('categories'));
+        return view('category.category_list', compact('categories'));
     }
 
     public function create() {
-        return view('add_category');
+        return view('category.add_category');
     }
 
     public function store(Request $request) {
@@ -41,7 +42,7 @@ class CategoryController extends Controller
 
     public function show($id) {
         $category = Category::find($id);
-        return view('edit_category', compact('category'));
+        return view('category.edit_category', compact('category'));
     }
 
     public function edit(Request $request, $id) {
