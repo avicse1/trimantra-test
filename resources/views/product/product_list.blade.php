@@ -1,9 +1,27 @@
 @extends('layout')
 @section('content')
 <div class="container">
-    <a href="{{route('create_product')}}">Add new Category</a>
-    <button class="btn btn-danger pull-right delete_all" data-url="{{ url('delete-selected-product') }}">Delete</button>
-    <br><br>
+    <a href="{{route('create_product')}}">Add new Product</a><br>
+    <label for="">Search</label>
+    <div class="col-md-12" style="padding:0">        
+        <div class="col-md-3" style="padding:0">
+            <input class="form-control" type="text" name="name" id="product_name">
+        </div>
+        <div class="col-md-3">            
+            <select class="form-control" name="category_id" id="category_id">
+                <option value="0">Select category</option>
+                @foreach($categories as $category)
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                @endforeach
+            </select>            
+        </div>
+        <div class="col-md-3"><button class="search btn btn-primary">Search</button></div>
+        <div class="col-md-3" style="padding:0">
+            <button class="btn btn-danger pull-right delete_all" data-url="{{ url('delete-selected-product') }}">Delete</button>
+        </div>
+    </div>
+    
+    <br><br><br>
     <table class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
@@ -91,5 +109,11 @@ $(document).ready(function () {
         }  
     });
 });
+
+$('.search').click(function(){
+    var name = $('#product_name').val();
+    var category_id = $('#category_id').val();
+    window.location = '/product-list?name=' + name + '&category_id=' + category_id;
+})
 </script>
 @endsection

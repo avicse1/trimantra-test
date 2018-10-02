@@ -10,9 +10,28 @@ use DB;
 
 class ProductController extends Controller
 {
-    public function index() {
-        $products = Product::all();
-        return view('product.product_list', compact('products'));
+    public function index(Request $request) {
+        $name = $request->get('name');
+        $category_id = $request->get('category_id');
+
+        $products_query = DB::table('products');
+
+        if($category_id) {
+            $products_query = $products_query->where('category_id', $category_id);
+        }
+
+        if($name) {
+            $products_query = $products_query->where('name', 'like', '%' . $name . '%');
+        }
+       
+        $products = $products_query->get();
+
+        foreach($products as $product) {
+            $product->category = Category::find($product->category_id);
+        }
+
+        $categories = Category::all();
+        return view('product.product_list', compact('products', 'categories'));
     }
 
     public function create() {
